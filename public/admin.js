@@ -443,7 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         const shed2Obj = directoryData.find(f => f.id === 'shed2');
         
-        await Promise.all([
+        const [resA, resB, resMain] = await Promise.all([
           fetch(`/api/directory/shed2a`, {
             method: "PUT",
             headers: { "Content-Type": "application/json", "x-admin-password": adminPassword },
@@ -464,11 +464,20 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         ]);
 
+        if (!resA.ok || !resB.ok || !resMain.ok) {
+          const errA = !resA.ok ? await resA.text() : "OK";
+          const errB = !resB.ok ? await resB.text() : "OK";
+          const errMain = !resMain.ok ? await resMain.text() : "OK";
+          console.error("Save split failed:", errA, errB, errMain);
+          alert(`Failed to save split details:\nShed 2A: ${resA.status} (${errA})\nShed 2B: ${resB.status} (${errB})\nMain: ${resMain.status} (${errMain})`);
+          return;
+        }
+
         closeModal();
         loadAdminDirectory();
       } catch (err) {
         console.error("Error saving split details:", err);
-        alert("Failed to save split details.");
+        alert("Failed to save split details: " + err.message);
       }
     } else {
       const isVacant = editIsVacant.checked;

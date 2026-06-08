@@ -371,7 +371,6 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Fallback: Map floor IDs to specific gallery images
         const mapping = {
-          third: "ext",
           second: "lobby",
           first: "lobby",
           ground: "parking",

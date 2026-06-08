@@ -3,22 +3,6 @@ const prisma = new PrismaClient();
 
 const occupantsData = [
   {
-    id: "third",
-    name: "Third Floor",
-    badge: "Residential",
-    badgeClass: "badge-residential",
-    icon: "3F",
-    isVacant: false,
-    isSplit: false,
-    areaSft: "1,500 SFT",
-    tenantName: "Vishala Vista Penthouse & Suites",
-    tenantCategory: "Residential",
-    tenantInitials: "VV",
-    tenantDescription: "Premium residential spaces featuring open-terrace gardens and executive suites.",
-    tenantContact: "Suite A & B",
-    floorImages: "images/exterior.png, images/lobby.png"
-  },
-  {
     id: "second",
     name: "Second Floor",
     badge: "Commercial",

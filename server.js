@@ -32,7 +32,7 @@ app.get('/api/directory', async (req, res) => {
   try {
     const occupants = await prisma.occupant.findMany();
     // Sort logically from top floor to bottom
-    const order = ["third", "second", "first", "ground", "shed1", "shed2"];
+    const order = ["second", "first", "ground", "shed1", "shed2"];
     occupants.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
     res.json(occupants);
   } catch (error) {
