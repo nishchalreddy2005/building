@@ -1543,3 +1543,103 @@ footer {
   100% { transform: scale(1); }
 }
 
+/* ==========================================
+   Highlight Vacancies Styles
+   ========================================== */
+.announcement-bar {
+  background: linear-gradient(90deg, #b45309, #d97706);
+  color: white;
+  padding: 0.5rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.announcement-link {
+  color: white;
+  text-decoration: underline;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: opacity 0.2s;
+}
+
+.announcement-link:hover {
+  opacity: 0.9;
+}
+
+.announcement-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.5rem;
+  position: absolute;
+  right: 1rem;
+}
+
+/* Body adjustments for fixed top bar */
+body.has-announcement {
+  margin-top: 38px;
+}
+
+body.has-announcement header {
+  top: 38px;
+}
+
+/* Hero Badge */
+.hero-vacancy-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(217, 119, 6, 0.2);
+  border: 1px solid var(--accent-light);
+  color: var(--accent-light);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+  animation: pulse 2s infinite;
+}
+
+/* Flash Highlight for Directory Cards */
+.card-flash-highlight {
+  animation: flashHighlight 1.5s ease-out;
+}
+
+@keyframes flashHighlight {
+  0% {
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+  }
+  15% {
+    background-color: rgba(217, 119, 6, 0.15);
+    border-color: var(--accent-light);
+    box-shadow: 0 0 15px rgba(217, 119, 6, 0.4);
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: white;
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transform: scale(1);
+  }
+}
+
+

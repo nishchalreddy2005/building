@@ -241,29 +241,40 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Modal Interactions (Open, Toggle, Close, Save)
   // ==========================================
   
-  // Hide tenant fields dynamically if "Vacant" is checked
-  editIsVacant.addEventListener("change", () => {
-    if (editIsVacant.checked) {
-      tenantFieldsContainer.style.display = "none";
+  function handleVacancyToggle(isVacant, nameInput, catInput, initialsInput, descInput, contactInput) {
+    const nameGroup = nameInput.closest(".form-group");
+    const gridGroup = catInput.closest("div[style*='grid']");
+    const descLabel = descInput.previousElementSibling;
+    const contactLabel = contactInput.previousElementSibling;
+
+    if (isVacant) {
+      if (nameGroup) nameGroup.style.display = "none";
+      if (gridGroup) gridGroup.style.display = "none";
+      if (descLabel) descLabel.textContent = "Leasing Description / Highlights";
+      descInput.placeholder = "e.g. Prime road-facing office space available for rent, modular partition layouts supported.";
+      if (contactLabel) contactLabel.textContent = "Leasing Contact Details";
+      contactInput.placeholder = "e.g. Call Management: +91 98765 43210";
     } else {
-      tenantFieldsContainer.style.display = "block";
+      if (nameGroup) nameGroup.style.display = "block";
+      if (gridGroup) gridGroup.style.display = "grid";
+      if (descLabel) descLabel.textContent = "Tenant Description";
+      descInput.placeholder = "A brief description of what the business does...";
+      if (contactLabel) contactLabel.textContent = "Contact Details";
+      contactInput.placeholder = "e.g. Suite 101 | Contact: info@email.com";
     }
+  }
+
+  // Hide/Show details dynamically if "Vacant" is toggled
+  editIsVacant.addEventListener("change", () => {
+    handleVacancyToggle(editIsVacant.checked, editTenantName, editTenantCategory, editTenantInitials, editTenantDescription, editTenantContact);
   });
 
   editIsVacantA.addEventListener("change", () => {
-    if (editIsVacantA.checked) {
-      tenantFieldsContainerA.style.display = "none";
-    } else {
-      tenantFieldsContainerA.style.display = "block";
-    }
+    handleVacancyToggle(editIsVacantA.checked, editTenantNameA, editTenantCategoryA, editTenantInitialsA, editTenantDescriptionA, editTenantContactA);
   });
 
   editIsVacantB.addEventListener("change", () => {
-    if (editIsVacantB.checked) {
-      tenantFieldsContainerB.style.display = "none";
-    } else {
-      tenantFieldsContainerB.style.display = "block";
-    }
+    handleVacancyToggle(editIsVacantB.checked, editTenantNameB, editTenantCategoryB, editTenantInitialsB, editTenantDescriptionB, editTenantContactB);
   });
 
   function toggleShedFieldsLayout(isSplitChecked) {
@@ -309,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
       editTenantInitialsA.value = shed2aObj.tenantInitials || "";
       editTenantDescriptionA.value = shed2aObj.tenantDescription || "";
       editTenantContactA.value = shed2aObj.tenantContact || "";
-      tenantFieldsContainerA.style.display = shed2aObj.isVacant ? "none" : "block";
+      handleVacancyToggle(shed2aObj.isVacant, editTenantNameA, editTenantCategoryA, editTenantInitialsA, editTenantDescriptionA, editTenantContactA);
     }
 
     // 3. Populate Part B fields
@@ -321,7 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
       editTenantInitialsB.value = shed2bObj.tenantInitials || "";
       editTenantDescriptionB.value = shed2bObj.tenantDescription || "";
       editTenantContactB.value = shed2bObj.tenantContact || "";
-      tenantFieldsContainerB.style.display = shed2bObj.isVacant ? "none" : "block";
+      handleVacancyToggle(shed2bObj.isVacant, editTenantNameB, editTenantCategoryB, editTenantInitialsB, editTenantDescriptionB, editTenantContactB);
     }
 
     // Split Shed 2 handling inside the modal
@@ -336,11 +347,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Trigger toggle layout for unified
-    if (floor.isVacant) {
-      tenantFieldsContainer.style.display = "none";
-    } else {
-      tenantFieldsContainer.style.display = "block";
-    }
+    handleVacancyToggle(floor.isVacant, editTenantName, editTenantCategory, editTenantInitials, editTenantDescription, editTenantContact);
 
     // Populate Floor Images for Unified
     if (unifiedImagesContainer) {
@@ -411,8 +418,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tenantName: isVacantA ? "" : editTenantNameA.value.trim(),
         tenantCategory: isVacantA ? "" : editTenantCategoryA.value.trim(),
         tenantInitials: isVacantA ? "" : editTenantInitialsA.value.trim(),
-        tenantDescription: isVacantA ? "" : editTenantDescriptionA.value.trim(),
-        tenantContact: isVacantA ? "" : editTenantContactA.value.trim(),
+        tenantDescription: editTenantDescriptionA.value.trim(),
+        tenantContact: editTenantContactA.value.trim(),
         floorImages: imagesA
       };
 
@@ -428,8 +435,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tenantName: isVacantB ? "" : editTenantNameB.value.trim(),
         tenantCategory: isVacantB ? "" : editTenantCategoryB.value.trim(),
         tenantInitials: isVacantB ? "" : editTenantInitialsB.value.trim(),
-        tenantDescription: isVacantB ? "" : editTenantDescriptionB.value.trim(),
-        tenantContact: isVacantB ? "" : editTenantContactB.value.trim(),
+        tenantDescription: editTenantDescriptionB.value.trim(),
+        tenantContact: editTenantContactB.value.trim(),
         floorImages: imagesB
       };
 
@@ -475,8 +482,8 @@ document.addEventListener("DOMContentLoaded", () => {
         tenantName: isVacant ? "" : editTenantName.value.trim(),
         tenantCategory: isVacant ? "" : editTenantCategory.value.trim(),
         tenantInitials: isVacant ? "" : editTenantInitials.value.trim(),
-        tenantDescription: isVacant ? "" : editTenantDescription.value.trim(),
-        tenantContact: isVacant ? "" : editTenantContact.value.trim(),
+        tenantDescription: editTenantDescription.value.trim(),
+        tenantContact: editTenantContact.value.trim(),
         floorImages: imagesUnified
       };
 

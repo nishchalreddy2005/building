@@ -95,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         directoryData = await directoryRes.json();
         updateVisualStackIndicators();
         renderDirectory();
+        setupVacancyAdvertisements();
       }
 
       if (galleryRes.ok) {
@@ -262,6 +263,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let occupantsHtml = "";
         
         if (floor.isVacant) {
+          const desc = floor.tenantDescription || "Prime space is currently vacant and open for commercial/office layouts. Custom design modifications can be accommodated.";
+          const contact = floor.tenantContact || "Call Management: +91 98765 43210";
           // Render Vacant Space Layout
           occupantsHtml = `
             <div class="occupant-item vacant-item-layout">
@@ -269,12 +272,12 @@ document.addEventListener("DOMContentLoaded", () => {
               <div class="occupant-info">
                 <h4 style="color: var(--accent);">Space Available for Lease</h4>
                 <div style="font-size: 0.9rem; font-weight: 600; color: var(--primary); margin: 0.15rem 0 0.4rem;">Size: ${floor.areaSft || 'N/A'}</div>
-                <p>Prime space is currently vacant and open for commercial/office layouts. Custom design modifications can be accommodated.</p>
+                <p>${desc}</p>
               </div>
               <div class="occupant-action">
                 <span class="badge badge-vacant">AVAILABLE NOW</span>
                 <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.4rem; font-weight: 600;">
-                  Call Management: +91 98765 43210
+                  ${contact}
                 </div>
               </div>
             </div>
@@ -534,6 +537,81 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   });
+
+  function setupVacancyAdvertisements() {
+    const vacantFloors = directoryData.filter(f => f.isVacant);
+    const announcementBar = document.getElementById("announcementBar");
+    const heroContent = document.querySelector(".hero-content");
+
+    if (vacantFloors.length > 0) {
+      // 1. Setup Top Announcement Bar
+      if (announcementBar) {
+        // Find first vacant floor details
+        const primaryVacant = vacantFloors[0];
+        const floorName = primaryVacant.name;
+        const sftText = primaryVacant.areaSft ? ` (${primaryVacant.areaSft})` : "";
+        
+        announcementBar.innerHTML = `
+          <span>🔥 Prime space available for rent: <strong>${floorName}${sftText}</strong> is now vacant!</span>
+          <span class="announcement-link" data-target="${primaryVacant.id}">
+            View Details & Contact
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:14px; height:14px; display:inline; margin-left:0.25rem;">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </span>
+          <button class="announcement-close" aria-label="Close Announcement">&times;</button>
+        `;
+        announcementBar.style.display = "flex";
+        document.body.classList.add("has-announcement");
+
+        // Click handler to scroll to card and flash highlight it
+        announcementBar.querySelector(".announcement-link").addEventListener("click", () => {
+          const targetId = primaryVacant.id;
+          // If Shed 2 is split, target the sub-sheds
+          const isShed2Split = directoryData.find(f => f.id === 'shed2')?.isSplit || false;
+          let actualCardId = `card-${targetId}`;
+          if (targetId === 'shed2' && isShed2Split) {
+            actualCardId = `card-shed2a`; // point to part A as representative
+          }
+          
+          const cardEl = document.getElementById(actualCardId);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: "smooth", block: "center" });
+            cardEl.classList.remove("card-flash-highlight");
+            // Trigger reflow
+            void cardEl.offsetWidth;
+            cardEl.classList.add("card-flash-highlight");
+          }
+        });
+
+        // Close announcement handler
+        announcementBar.querySelector(".announcement-close").addEventListener("click", () => {
+          announcementBar.style.display = "none";
+          document.body.classList.remove("has-announcement");
+        });
+      }
+
+      // 2. Setup Hero Badge
+      if (heroContent && !document.querySelector(".hero-vacancy-badge")) {
+        const badge = document.createElement("div");
+        badge.className = "hero-vacancy-badge";
+        badge.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:16px; height:16px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Leasing Open: Space Available
+        `;
+        heroContent.insertBefore(badge, heroContent.firstChild);
+      }
+    } else {
+      if (announcementBar) {
+        announcementBar.style.display = "none";
+        document.body.classList.remove("has-announcement");
+      }
+      const existingBadge = document.querySelector(".hero-vacancy-badge");
+      if (existingBadge) existingBadge.remove();
+    }
+  }
 
   // Initial load
   loadData();
