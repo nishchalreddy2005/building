@@ -565,6 +565,28 @@ document.addEventListener("DOMContentLoaded", () => {
     addPhoneFieldBtn.addEventListener("click", () => createPhoneInputRow(""));
   }
 
+  const amenitiesInputsContainer = document.getElementById("amenitiesInputsContainer");
+  const addAmenityFieldBtn = document.getElementById("addAmenityFieldBtn");
+
+  function createAmenityInputRow(val = "") {
+    if (!amenitiesInputsContainer) return;
+    const row = document.createElement("div");
+    row.style.cssText = "display:flex; gap:0.5rem; align-items:center; margin-bottom:0.5rem;";
+    row.className = "amenity-input-row";
+    row.innerHTML = `
+      <input type="text" class="form-control amenity-input-field" value="${val}" placeholder="e.g. Dedicated 24/7 security guard presence" required>
+      <button type="button" class="btn btn-outline remove-amenity-btn" style="padding:0.5rem 0.75rem; border-color:#ef4444; color:#ef4444; background:transparent; line-height:1; font-size:1.25rem;">&times;</button>
+    `;
+    row.querySelector(".remove-amenity-btn").addEventListener("click", () => {
+      row.remove();
+    });
+    amenitiesInputsContainer.appendChild(row);
+  }
+
+  if (addAmenityFieldBtn) {
+    addAmenityFieldBtn.addEventListener("click", () => createAmenityInputRow(""));
+  }
+
   // Load property details
   async function loadAdminPropertyInfo() {
     try {
@@ -582,10 +604,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("propScheduleWeekdays").value = data.scheduleWeekdays;
         document.getElementById("propScheduleSunday").value = data.scheduleSunday;
         document.getElementById("propAmenityTitle").value = data.amenityTitle;
-        document.getElementById("propAmenity1").value = data.amenity1;
-        document.getElementById("propAmenity2").value = data.amenity2;
-        document.getElementById("propAmenity3").value = data.amenity3;
-        document.getElementById("propAmenity4").value = data.amenity4;
+        if (amenitiesInputsContainer) {
+          amenitiesInputsContainer.innerHTML = "";
+          if (data.amenities) {
+            const list = data.amenities.split(";").map(a => a.trim()).filter(Boolean);
+            list.forEach(item => createAmenityInputRow(item));
+          } else {
+            createAmenityInputRow("");
+          }
+        }
         
         // Populate Contact fields
         document.getElementById("propContactEmail").value = data.contactEmail || "";
@@ -612,6 +639,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const phoneFields = document.querySelectorAll(".phone-input-field");
       const phoneNumbers = Array.from(phoneFields).map(f => f.value.trim()).filter(Boolean).join(", ");
 
+      const amenityFields = document.querySelectorAll(".amenity-input-field");
+      const amenitiesStr = Array.from(amenityFields).map(f => f.value.trim()).filter(Boolean).join("; ");
+
       const payload = {
         title: document.getElementById("propTitle").value.trim(),
         description1: document.getElementById("propDesc1").value.trim(),
@@ -624,10 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scheduleWeekdays: document.getElementById("propScheduleWeekdays").value.trim(),
         scheduleSunday: document.getElementById("propScheduleSunday").value.trim(),
         amenityTitle: document.getElementById("propAmenityTitle").value.trim(),
-        amenity1: document.getElementById("propAmenity1").value.trim(),
-        amenity2: document.getElementById("propAmenity2").value.trim(),
-        amenity3: document.getElementById("propAmenity3").value.trim(),
-        amenity4: document.getElementById("propAmenity4").value.trim(),
+        amenities: amenitiesStr,
         contactEmail: document.getElementById("propContactEmail").value.trim(),
         contactPhones: phoneNumbers
       };

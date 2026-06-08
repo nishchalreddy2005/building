@@ -179,10 +179,7 @@ async function main() {
       scheduleWeekdays: "Monday - Saturday: 8:00 AM - 8:00 PM",
       scheduleSunday: "Sunday: Closed (Closed for public, tenant access only)",
       amenityTitle: "Building Amenities",
-      amenity1: "High-speed passenger elevator & wide stairways",
-      amenity2: "Dedicated 24/7 security guard presence",
-      amenity3: "Uninterrupted power backup generator & water supply",
-      amenity4: "Designated visitors' parking lobby on ground floor",
+      amenities: "High-speed passenger elevator & wide stairways; Dedicated 24/7 security guard presence; Uninterrupted power backup generator & water supply; Designated visitors' parking lobby on ground floor",
       contactEmail: "info@vishalavista.com",
       contactPhones: "+91 98765 43210, +91 88865 12345"
     }

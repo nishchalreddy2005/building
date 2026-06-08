@@ -160,34 +160,20 @@
                   <input type="text" id="propScheduleSunday" class="form-control" required>
                 </div>
               </div>
-            </div>
-
-            <!-- Amenities settings -->
+              <!-- Amenities settings -->
             <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
-              <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Building Amenities Card</h4>
+              <h4 style="display:flex; justify-content:space-between; align-items:center; margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">
+                <span>Building Amenities Card</span>
+                <button type="button" id="addAmenityFieldBtn" class="btn btn-outline" style="padding:0.2rem 0.5rem; font-size:0.75rem;">+ Add Amenity</button>
+              </h4>
               <div class="form-group">
                 <label for="propAmenityTitle">Amenities Card Title</label>
                 <input type="text" id="propAmenityTitle" class="form-control" required>
               </div>
-              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
-                <div class="form-group" style="margin-bottom:0;">
-                  <label for="propAmenity1">Amenity Item 1</label>
-                  <input type="text" id="propAmenity1" class="form-control" required>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <label for="propAmenity2">Amenity Item 2</label>
-                  <input type="text" id="propAmenity2" class="form-control" required>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <label for="propAmenity3">Amenity Item 3</label>
-                  <input type="text" id="propAmenity3" class="form-control" required>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <label for="propAmenity4">Amenity Item 4</label>
-                  <input type="text" id="propAmenity4" class="form-control" required>
-                </div>
+              <div id="amenitiesInputsContainer" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
+                <!-- Amenity input rows will be appended here dynamically -->
               </div>
-            </div>
+            </div>            </div>
 
           </div>
 

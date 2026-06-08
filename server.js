@@ -178,10 +178,7 @@ app.put('/api/property', adminAuth, async (req, res) => {
     scheduleWeekdays,
     scheduleSunday,
     amenityTitle,
-    amenity1,
-    amenity2,
-    amenity3,
-    amenity4,
+    amenities,
     contactEmail,
     contactPhones
   } = req.body;
@@ -201,10 +198,7 @@ app.put('/api/property', adminAuth, async (req, res) => {
         scheduleWeekdays,
         scheduleSunday,
         amenityTitle,
-        amenity1,
-        amenity2,
-        amenity3,
-        amenity4,
+        amenities,
         contactEmail,
         contactPhones
       }

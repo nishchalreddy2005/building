@@ -46,10 +46,7 @@ model PropertyInfo {
   scheduleWeekdays String
   scheduleSunday   String
   amenityTitle     String   @default("Building Amenities")
-  amenity1         String
-  amenity2         String
-  amenity3         String
-  amenity4         String
+  amenities        String   @default("")
   contactEmail     String   @default("info@vishalavista.com")
   contactPhones    String   @default("+91 98765 43210")
   updatedAt        DateTime @updatedAt

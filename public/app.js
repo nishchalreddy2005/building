@@ -125,16 +125,19 @@ document.addEventListener("DOMContentLoaded", () => {
       locationTitle: data.locationTitle,
       locationDetails: data.locationDetails,
       scheduleWeekdays: data.scheduleWeekdays,
-      scheduleSunday: data.scheduleSunday,
-      amenity1: data.amenity1,
-      amenity2: data.amenity2,
-      amenity3: data.amenity3,
-      amenity4: data.amenity4
+      scheduleSunday: data.scheduleSunday
     };
 
     for (const [id, val] of Object.entries(elements)) {
       const el = document.getElementById(id);
       if (el) el.innerHTML = val;
+    }
+
+    // Dynamic Amenities Rendering
+    const amenitiesContainer = document.getElementById("amenitiesContainer");
+    if (amenitiesContainer && data.amenities) {
+      const amenitiesList = data.amenities.split(";").map(a => a.trim()).filter(Boolean);
+      amenitiesContainer.innerHTML = amenitiesList.map(amenity => `<p>• ${amenity}</p>`).join("");
     }
 
     // Dynamic Email Rendering
