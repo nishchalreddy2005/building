@@ -3,6 +3,8 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  const updateChannel = new BroadcastChannel("vishala_vista_updates");
+
   // Elements
   const header = document.querySelector("header");
   const navToggle = document.getElementById("navToggle");
@@ -614,6 +616,16 @@ document.addEventListener("DOMContentLoaded", () => {
       if (existingBadge) existingBadge.remove();
     }
   }
+
+  // Listen to cross-tab updates from admin panel on same browser/machine
+  updateChannel.onmessage = (e) => {
+    if (e.data === "refresh") {
+      loadData();
+    }
+  };
+
+  // Poll for updates every 30 seconds to support multi-device updates
+  setInterval(loadData, 30000);
 
   // Initial load
   loadData();

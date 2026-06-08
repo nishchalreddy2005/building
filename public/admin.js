@@ -3,6 +3,8 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  const updateChannel = new BroadcastChannel("vishala_vista_updates");
+
   // Authentication Elements
   const loginSection = document.getElementById("loginSection");
   const loginForm = document.getElementById("loginForm");
@@ -475,6 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         closeModal();
         loadAdminDirectory();
+        updateChannel.postMessage("refresh");
       } catch (err) {
         console.error("Error saving split details:", err);
         alert("Failed to save split details: " + err.message);
@@ -533,6 +536,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           closeModal();
           loadAdminDirectory();
+          updateChannel.postMessage("refresh");
         } else {
           alert("Failed to save changes.");
         }
@@ -672,6 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
           alert("Property info saved successfully!");
           loadAdminPropertyInfo();
+          updateChannel.postMessage("refresh");
         } else {
           alert("Failed to save property info. Check credentials.");
         }
@@ -752,6 +757,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         alert("Gallery photo updated successfully!");
         loadAdminGallery();
+        updateChannel.postMessage("refresh");
       } else {
         alert("Failed to update gallery photo.");
       }
@@ -775,6 +781,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         alert("Gallery photo deleted successfully!");
         loadAdminGallery();
+        updateChannel.postMessage("refresh");
       } else {
         alert("Failed to delete gallery photo.");
       }
@@ -809,6 +816,7 @@ document.addEventListener("DOMContentLoaded", () => {
           alert("New gallery photo added successfully!");
           addGalleryPhotoForm.reset();
           loadAdminGallery();
+          updateChannel.postMessage("refresh");
         } else {
           alert("Failed to add gallery photo.");
         }
