@@ -222,9 +222,13 @@ app.get('*', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`\n🚀 Vishala Vista backend is running!`);
-  console.log(`   Local URL:    http://localhost:${PORT}`);
-  console.log(`   Network URL:  http://127.0.0.1:${PORT}`);
-  console.log(`   Admin Panel:  http://localhost:${PORT}/admin.html\n`);
-});
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n🚀 Vishala Vista backend is running!`);
+    console.log(`   Local URL:    http://localhost:${PORT}`);
+    console.log(`   Network URL:  http://127.0.0.1:${PORT}`);
+    console.log(`   Admin Panel:  http://localhost:${PORT}/admin.html\n`);
+  });
+}
+
+module.exports = app;
