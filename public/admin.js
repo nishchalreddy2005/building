@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (addPartBImageBtn) addPartBImageBtn.addEventListener("click", () => createFloorImageInputRow(partBImagesContainer, ""));
 
   let directoryData = [];
-  let adminPassword = localStorage.getItem("adminPassword") || "";
+  let adminPassword = sessionStorage.getItem("adminPassword") || "";
 
   // ==========================================
   // 1. Initial State Check
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (response.ok) {
         showDashboard();
       } else {
-        localStorage.removeItem("adminPassword");
+        sessionStorage.removeItem("adminPassword");
         adminPassword = "";
         showLogin();
       }
@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
       
       if (response.ok && data.success) {
         adminPassword = enteredPassword;
-        localStorage.setItem("adminPassword", adminPassword);
+        sessionStorage.setItem("adminPassword", adminPassword);
         adminPasswordInput.value = "";
         showDashboard();
       } else {
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("adminPassword");
+    sessionStorage.removeItem("adminPassword");
     adminPassword = "";
     showLogin();
   });
