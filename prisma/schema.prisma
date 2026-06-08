@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Occupant {
+  id                String   @id
+  name              String
+  badge             String
+  badgeClass        String
+  icon              String
+  isVacant          Boolean  @default(false)
+  isSplit           Boolean  @default(false)
+  areaSft           String   @default("")
+  tenantName        String
+  tenantCategory    String
+  tenantInitials    String
+  tenantDescription String
+  tenantContact     String
+  floorImages       String   @default("")
+  updatedAt         DateTime @updatedAt
+}
+
+model GalleryImage {
+  id          String   @id
+  title       String
+  description String
+  url         String
+  updatedAt   DateTime @updatedAt
+}
+
+model PropertyInfo {
+  id               String   @id @default("about")
+  title            String
+  description1     String   @db.Text
+  description2     String   @db.Text
+  accessTitle      String   @default("Flexible Access")
+  accessDetails    String   @db.Text
+  locationTitle    String   @default("Prime Location")
+  locationDetails  String   @db.Text
+  scheduleTitle    String   @default("Operating Schedule")
+  scheduleWeekdays String
+  scheduleSunday   String
+  amenityTitle     String   @default("Building Amenities")
+  amenity1         String
+  amenity2         String
+  amenity3         String
+  amenity4         String
+  contactEmail     String   @default("info@vishalavista.com")
+  contactPhones    String   @default("+91 98765 43210")
+  updatedAt        DateTime @updatedAt
+}

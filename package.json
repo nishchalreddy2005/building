@@ -1,0 +1,23 @@
+{
+  "name": "vishala-vista",
+  "version": "1.0.0",
+  "description": "Full-stack website for Vishala Vista commercial/residential building",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "db:push": "npx prisma db push",
+    "db:seed": "node prisma/seed.js",
+    "build": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.14.0"
+  },
+  "license": "ISC"
+}

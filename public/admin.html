@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vishala Vista | Admin Control Panel</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+
+  <!-- Header Navigation -->
+  <header class="scrolled">
+    <div class="container nav-wrapper">
+      <a href="/" class="logo">
+        <div class="logo-icon">V</div>
+        Vishala <span>Vista</span> <small style="font-size:0.8rem; margin-left:0.5rem; color:var(--text-muted);">Admin Panel</small>
+      </a>
+      <ul class="nav-links" style="display:flex; align-items:center;">
+        <li><a href="/" target="_blank">View Site ↗</a></li>
+        <li><button class="btn btn-outline" id="logoutBtn" style="padding:0.4rem 1rem; font-size:0.8rem; display:none;">Logout</button></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="container">
+    
+    <!-- 1. Login Screen Container -->
+    <div id="loginSection" class="admin-login-container">
+      <h2 style="margin-bottom:0.5rem; text-align:center;">Admin Access</h2>
+      <p style="text-align:center; font-size:0.9rem; margin-bottom:2rem; color:var(--text-muted);">Enter the password to manage building occupants.</p>
+      
+      <div id="loginError" style="display:none; color:#ef4444; background:#fee2e2; border:1px solid #fca5a5; padding:0.75rem; border-radius:6px; font-size:0.85rem; margin-bottom:1.5rem; text-align:center;">
+        Invalid password. Please try again.
+      </div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="adminPassword">Admin Password</label>
+          <input type="password" id="adminPassword" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Access Dashboard</button>
+      </form>
+    </div>
+
+    <!-- 2. Main Dashboard Section -->
+    <div id="dashboardSection" style="display:none;">
+      
+      <div class="admin-header">
+        <div>
+          <h2>Management Dashboard</h2>
+          <p style="color:var(--text-muted); font-size:0.95rem;">Configure occupancy statuses, tenants, and contact details.</p>
+        </div>
+      </div>
+
+      <!-- Occupants List Card -->
+      <div class="admin-card">
+        <h3 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:22px; height:22px; color:var(--accent);">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          Floor Occupancy Configuration
+        </h3>
+        
+        <div id="adminDirectoryList">
+          <!-- Populated dynamically via admin.js -->
+          <p style="text-align:center; color:var(--text-muted); padding:2rem;">Loading directory data...</p>
+        </div>
+      </div>
+
+      <!-- Property Info Card -->
+      <div class="admin-card" style="margin-top:2rem;">
+        <h3 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:22px; height:22px; color:var(--accent);">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          Property "About" Section Configuration
+        </h3>
+        
+        <form id="propertyInfoForm">
+          <div style="display:grid; grid-template-columns: 1fr; gap:1.25rem;">
+            
+            <!-- Main Title & Descriptions -->
+            <div class="form-group">
+              <label for="propTitle">About Section Title</label>
+              <input type="text" id="propTitle" class="form-control" required>
+            </div>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem;">
+              <div class="form-group">
+                <label for="propDesc1">Description Paragraph 1</label>
+                <textarea id="propDesc1" class="form-control" rows="4" required></textarea>
+              </div>
+              <div class="form-group">
+                <label for="propDesc2">Description Paragraph 2</label>
+                <textarea id="propDesc2" class="form-control" rows="4" required></textarea>
+              </div>
+            </div>
+
+            <!-- Contact Details Settings -->
+            <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
+              <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Contact Details</h4>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propContactEmail">Contact Email Address</label>
+                  <input type="email" id="propContactEmail" class="form-control" required>
+                </div>
+                
+                <div class="form-group" style="margin-bottom:0;">
+                  <label style="display:flex; justify-content:space-between; align-items:center;">
+                    <span>Contact Phone Numbers</span>
+                    <button type="button" id="addPhoneFieldBtn" class="btn btn-outline" style="padding:0.2rem 0.5rem; font-size:0.75rem;">+ Add Number</button>
+                  </label>
+                  <div id="phoneInputsContainer" style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
+                    <!-- Phone input rows will be appended here dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Features: Access & Location -->
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem; background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
+              <div>
+                <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Feature 1 (Access)</h4>
+                <div class="form-group">
+                  <label for="propAccessTitle">Feature Title</label>
+                  <input type="text" id="propAccessTitle" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propAccessDetails">Feature Description</label>
+                  <input type="text" id="propAccessDetails" class="form-control" required>
+                </div>
+              </div>
+              <div>
+                <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Feature 2 (Location)</h4>
+                <div class="form-group">
+                  <label for="propLocationTitle">Feature Title</label>
+                  <input type="text" id="propLocationTitle" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propLocationDetails">Feature Description</label>
+                  <input type="text" id="propLocationDetails" class="form-control" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Schedule Card Settings -->
+            <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
+              <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Schedule Card Details</h4>
+              <div style="display:grid; grid-template-columns: 1.2fr 0.9fr 0.9fr; gap:1rem;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propScheduleTitle">Card Title</label>
+                  <input type="text" id="propScheduleTitle" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propScheduleWeekdays">Weekday Hours</label>
+                  <input type="text" id="propScheduleWeekdays" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propScheduleSunday">Sunday Hours</label>
+                  <input type="text" id="propScheduleSunday" class="form-control" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- Amenities settings -->
+            <div style="background:#f8fafc; padding:1rem; border-radius:6px; border:1px solid #cbd5e1;">
+              <h4 style="margin-top:0; margin-bottom:0.75rem; font-size:0.95rem; color:var(--primary);">Building Amenities Card</h4>
+              <div class="form-group">
+                <label for="propAmenityTitle">Amenities Card Title</label>
+                <input type="text" id="propAmenityTitle" class="form-control" required>
+              </div>
+              <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1rem;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propAmenity1">Amenity Item 1</label>
+                  <input type="text" id="propAmenity1" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propAmenity2">Amenity Item 2</label>
+                  <input type="text" id="propAmenity2" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propAmenity3">Amenity Item 3</label>
+                  <input type="text" id="propAmenity3" class="form-control" required>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <label for="propAmenity4">Amenity Item 4</label>
+                  <input type="text" id="propAmenity4" class="form-control" required>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div style="display:flex; justify-content:flex-end; margin-top:1.5rem;">
+            <button type="submit" class="btn btn-primary" style="padding:0.6rem 2rem;">Save Property Info</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Gallery Images Configuration Card -->
+      <div class="admin-card" style="margin-top:2rem;">
+        <h3 style="margin-bottom:1.5rem; display:flex; align-items:center; gap:0.5rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:22px; height:22px; color:var(--accent);">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Property Gallery Configuration (ImageKit URLs)
+        </h3>
+
+        <!-- Form to add new photo -->
+        <form id="addGalleryPhotoForm" style="background:#f1f5f9; padding:1.25rem; border-radius:8px; border:1px solid #cbd5e1; margin-bottom:2rem;">
+          <h4 style="margin-top:0; margin-bottom:1rem; color:var(--primary); font-size:1.1rem; border-bottom:1px solid #cbd5e1; padding-bottom:0.5rem;">Add New Photo</h4>
+          <div style="display:grid; grid-template-columns: 1fr 1.5fr 2fr; gap:1rem; width:100%; align-items:flex-end;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="newPhotoTitle" style="font-size:0.8rem; font-weight:600;">Image Title</label>
+              <input type="text" id="newPhotoTitle" class="form-control" placeholder="e.g. Lobby Entrance" required style="padding:0.35rem 0.6rem; font-size:0.9rem;">
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label for="newPhotoUrl" style="font-size:0.8rem; font-weight:600;">Image URL (ImageKit URL)</label>
+              <input type="text" id="newPhotoUrl" class="form-control" placeholder="e.g. https://ik.imagekit.io/..." required style="padding:0.35rem 0.6rem; font-size:0.9rem;">
+            </div>
+            <div class="form-group" style="margin-bottom:0; display:flex; gap:1rem; align-items:flex-end;">
+              <div style="flex:1;">
+                <label for="newPhotoDesc" style="font-size:0.8rem; font-weight:600;">Description</label>
+                <input type="text" id="newPhotoDesc" class="form-control" placeholder="e.g. Spacious lobby entrance..." required style="padding:0.35rem 0.6rem; font-size:0.9rem; height:38px;">
+              </div>
+              <button type="submit" class="btn btn-primary" style="padding:0.55rem 1.25rem; font-size:0.85rem; height:38px; white-space:nowrap;">+ Add Photo</button>
+            </div>
+          </div>
+        </form>
+        
+        <div id="adminGalleryList" style="display:flex; flex-direction:column; gap:1.5rem;">
+          <p style="text-align:center; color:var(--text-muted); padding:2rem;">Loading gallery data...</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 3. Edit Occupant Modal Dialog -->
+  <div id="editModal" class="admin-modal">
+    <div class="admin-modal-content">
+      <div class="admin-modal-header">
+        <h3 id="modalFloorTitle">Edit Floor Details</h3>
+        <button id="closeModalBtn" style="background:transparent; border:none; color:white; font-size:1.5rem; cursor:pointer;">&times;</button>
+      </div>
+      
+      <form id="editOccupantForm">
+        <input type="hidden" id="editFloorId">
+        
+        <div class="admin-modal-body">
+          <!-- Split Shed 2 Checkbox (Only visible when editing Shed 2 units) -->
+          <div id="splitShed2FormGroup" class="form-group" style="display:none; align-items:center; gap:0.75rem; background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1; margin-bottom:1.5rem;">
+            <input type="checkbox" id="editIsSplit" style="width:20px; height:20px; cursor:pointer;">
+            <label for="editIsSplit" style="margin-bottom:0; cursor:pointer; font-weight:700;">Split Shed 2 into Part A & B</label>
+          </div>
+
+          <!-- Unified Fields Container (hidden when split is checked) -->
+          <div id="unifiedShedFieldsContainer">
+            <!-- Vacancy Checkbox -->
+            <div class="form-group" style="display:flex; align-items:center; gap:0.75rem; background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:1.5rem;">
+              <input type="checkbox" id="editIsVacant" style="width:20px; height:20px; cursor:pointer;">
+              <label for="editIsVacant" style="margin-bottom:0; cursor:pointer; font-weight:700;">
+                Mark Space as VACANT / Available for Lease
+              </label>
+            </div>
+
+            <!-- Area SFT Input (Always Editable) -->
+            <div class="form-group">
+              <label for="editAreaSft">Space Area (SFT / Size)</label>
+              <input type="text" id="editAreaSft" class="form-control" placeholder="e.g. 3,000 SFT">
+            </div>
+
+            <!-- Tenant Fields (Grouped, hidable when vacant) -->
+            <div id="tenantFieldsContainer">
+              <div class="form-group">
+                <label for="editTenantName">Tenant Business / Name</label>
+                <input type="text" id="editTenantName" class="form-control" placeholder="e.g. Avanthi Tech Solutions">
+              </div>
+
+              <div style="display:grid; grid-template-columns: 1.5fr 0.5fr; gap:1rem;">
+                <div class="form-group">
+                  <label for="editTenantCategory">Business Category</label>
+                  <input type="text" id="editTenantCategory" class="form-control" placeholder="e.g. IT & Software Offices">
+                </div>
+                <div class="form-group">
+                  <label for="editTenantInitials">Initials (2 letters)</label>
+                  <input type="text" id="editTenantInitials" class="form-control" maxLength="2" placeholder="e.g. AT">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="editTenantDescription">Tenant Description</label>
+                <textarea id="editTenantDescription" class="form-control" rows="3" placeholder="A brief description of what the business does..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="editTenantContact">Contact Details</label>
+                <input type="text" id="editTenantContact" class="form-control" placeholder="e.g. Suite 101 | Contact: info@email.com">
+              </div>
+            <!-- Unified Floor Images -->
+            <div class="form-group" style="background:#f8fafc; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1; margin-top:1rem;">
+              <label style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; font-weight:700;">
+                <span>Floor Gallery Images (URLs)</span>
+                <button type="button" id="addUnifiedImageBtn" class="btn btn-outline" style="padding:0.2rem 0.5rem; font-size:0.75rem; background:transparent;">+ Add Image</button>
+              </label>
+              <div id="unifiedImagesContainer" style="display:flex; flex-direction:column; gap:0.5rem;">
+                <!-- Image URL input rows will be appended here dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Split Fields Container (visible when split is checked) -->
+          <div id="splitShedFieldsContainer" style="display:none; flex-direction:column; gap:1.5rem;">
+            <!-- Part A Details -->
+            <div style="background:#f1f5f9; padding:1rem; border-radius:8px; border:1px solid #cbd5e1;">
+              <h4 style="margin-top:0; margin-bottom:1rem; color:var(--primary); font-size:1.1rem; border-bottom:1px solid #cbd5e1; padding-bottom:0.5rem;">Shed 2 - Part A</h4>
+              
+              <div class="form-group" style="display:flex; align-items:center; gap:0.75rem; background:#ffffff; padding:0.75rem 1rem; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+                <input type="checkbox" id="editIsVacantA" style="width:20px; height:20px; cursor:pointer;">
+                <label for="editIsVacantA" style="margin-bottom:0; cursor:pointer; font-weight:700;">Mark Part A as VACANT</label>
+              </div>
+
+              <div class="form-group">
+                <label for="editAreaSftA">Part A Area (SFT / Size)</label>
+                <input type="text" id="editAreaSftA" class="form-control" placeholder="e.g. 1,500 SFT">
+              </div>
+
+              <div id="tenantFieldsContainerA">
+                <div class="form-group">
+                  <label for="editTenantNameA">Tenant Business / Name</label>
+                  <input type="text" id="editTenantNameA" class="form-control" placeholder="e.g. Avanthi Part A">
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1.5fr 0.5fr; gap:1rem;">
+                  <div class="form-group">
+                    <label for="editTenantCategoryA">Business Category</label>
+                    <input type="text" id="editTenantCategoryA" class="form-control" placeholder="e.g. Logistics">
+                  </div>
+                  <div class="form-group">
+                    <label for="editTenantInitialsA">Initials (2 letters)</label>
+                    <input type="text" id="editTenantInitialsA" class="form-control" maxLength="2" placeholder="e.g. AL">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="editTenantDescriptionA">Tenant Description</label>
+                  <textarea id="editTenantDescriptionA" class="form-control" rows="2" placeholder="Description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="editTenantContactA">Contact Details</label>
+                  <input type="text" id="editTenantContactA" class="form-control" placeholder="Contact details...">
+                </div>
+              <!-- Part A Floor Images -->
+              <div class="form-group" style="background:#ffffff; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1; margin-top:1rem;">
+                <label style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; font-weight:700;">
+                  <span>Part A Gallery Images (URLs)</span>
+                  <button type="button" id="addPartAImageBtn" class="btn btn-outline" style="padding:0.2rem 0.5rem; font-size:0.75rem; background:transparent;">+ Add Image</button>
+                </label>
+                <div id="partAImagesContainer" style="display:flex; flex-direction:column; gap:0.5rem;">
+                  <!-- Image URL input rows will be appended here dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Part B Details -->
+            <div style="background:#f1f5f9; padding:1rem; border-radius:8px; border:1px solid #cbd5e1;">
+              <h4 style="margin-top:0; margin-bottom:1rem; color:var(--primary); font-size:1.1rem; border-bottom:1px solid #cbd5e1; padding-bottom:0.5rem;">Shed 2 - Part B</h4>
+              
+              <div class="form-group" style="display:flex; align-items:center; gap:0.75rem; background:#ffffff; padding:0.75rem 1rem; border-radius:6px; border:1px solid #e2e8f0; margin-bottom:1rem;">
+                <input type="checkbox" id="editIsVacantB" style="width:20px; height:20px; cursor:pointer;">
+                <label for="editIsVacantB" style="margin-bottom:0; cursor:pointer; font-weight:700;">Mark Part B as VACANT</label>
+              </div>
+
+              <div class="form-group">
+                <label for="editAreaSftB">Part B Area (SFT / Size)</label>
+                <input type="text" id="editAreaSftB" class="form-control" placeholder="e.g. 1,500 SFT">
+              </div>
+
+              <div id="tenantFieldsContainerB">
+                <div class="form-group">
+                  <label for="editTenantNameB">Tenant Business / Name</label>
+                  <input type="text" id="editTenantNameB" class="form-control" placeholder="e.g. Avanthi Part B">
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1.5fr 0.5fr; gap:1rem;">
+                  <div class="form-group">
+                    <label for="editTenantCategoryB">Business Category</label>
+                    <input type="text" id="editTenantCategoryB" class="form-control" placeholder="e.g. Storage">
+                  </div>
+                  <div class="form-group">
+                    <label for="editTenantInitialsB">Initials (2 letters)</label>
+                    <input type="text" id="editTenantInitialsB" class="form-control" maxLength="2" placeholder="e.g. AB">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="editTenantDescriptionB">Tenant Description</label>
+                  <textarea id="editTenantDescriptionB" class="form-control" rows="2" placeholder="Description..."></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="editTenantContactB">Contact Details</label>
+                  <input type="text" id="editTenantContactB" class="form-control" placeholder="Contact details...">
+                </div>
+              <!-- Part B Floor Images -->
+              <div class="form-group" style="background:#ffffff; padding:0.75rem 1rem; border-radius:6px; border:1px solid #cbd5e1; margin-top:1rem;">
+                <label style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; font-weight:700;">
+                  <span>Part B Gallery Images (URLs)</span>
+                  <button type="button" id="addPartBImageBtn" class="btn btn-outline" style="padding:0.2rem 0.5rem; font-size:0.75rem; background:transparent;">+ Add Image</button>
+                </label>
+                <div id="partBImagesContainer" style="display:flex; flex-direction:column; gap:0.5rem;">
+                  <!-- Image URL input rows will be appended here dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Vishala Vista | Premier Commercial & Residential Building in Rajamahendravaram</title>
+  <meta name="description" content="Welcome to Vishala Vista, a premier building located at Government Colony, Tadithota, Rajamahendravaram, Andhra Pradesh. Explore occupant directory, building facilities, gallery, and contact information.">
+  <meta name="keywords" content="Vishala Vista, Tadithota, Rajamahendravaram, Building Directory, Rajahmundry Commercial Space, Government Colony Building">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#home" class="logo">
+        <div class="logo-icon">V</div>
+        Vishala <span>Vista</span>
+      </a>
+      
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#directory">Directory</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Location & Contact</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Main Website Content -->
+  <main>
+    
+    <!-- Hero / Homepage Section -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="hero-tagline">Premium Business & Residential Space</span>
+          <h1>Welcome to Vishala Vista</h1>
+          <p>A premier multi-use building located at Government Colony, Tadithota, Rajamahendravaram. Offering state-of-the-art facilities, excellent accessibility, and custom industrial shed spaces.</p>
+          <div class="hero-actions">
+            <a href="#directory" class="btn btn-primary">View Building Directory</a>
+            <a href="#contact" class="btn btn-outline">Find Us on Map</a>
+          </div>
+        </div>
+        <div class="hero-image-wrapper">
+          <img src="images/exterior.png" alt="Vishala Vista Building Exterior View">
+        </div>
+      </div>
+    </section>
+
+    <!-- Building Directory Section -->
+    <section id="directory" class="section-padding directory-section">
+      <div class="container">
+        
+        <div class="section-header text-center">
+          <span class="section-tagline">Building Layout</span>
+          <h2>Occupants Directory</h2>
+          <p>Navigate through the levels of Vishala Vista to locate businesses, medical services, offices, and residential spaces. Click on the visual building diagram to filter by floor.</p>
+        </div>
+
+        <div class="directory-layout">
+          
+          <!-- Visual Building Stack Map -->
+          <div class="building-visual-wrapper">
+            <h4 style="margin-bottom: 0.5rem; color: var(--primary); text-align: center;">Interactive Floor Stack</h4>
+            <p style="font-size: 0.8rem; margin-bottom: 1.5rem; text-align: center;">Click a floor to isolate its tenants</p>
+            
+            <div class="building-stack">
+              <div class="building-roof"></div>
+              
+              <button class="building-floor-btn" data-floor="third" aria-label="Filter by Third Floor">
+                <span class="floor-label">3rd Floor</span>
+                Residential Suites & Penthouse
+              </button>
+              
+              <button class="building-floor-btn" data-floor="second" aria-label="Filter by Second Floor">
+                <span class="floor-label">2nd Floor</span>
+                Royal Dental Care
+              </button>
+              
+              <button class="building-floor-btn" data-floor="first" aria-label="Filter by First Floor">
+                <span class="floor-label">1st Floor</span>
+                Avanthi Tech Solutions
+              </button>
+              
+              <button class="building-floor-btn" data-floor="ground" aria-label="Filter by Ground Floor">
+                <span class="floor-label">Ground Floor</span>
+                Sri Sai Medicals & Diagnostics
+              </button>
+              
+              <div class="building-sheds-container">
+                <button class="building-floor-btn" data-floor="shed1" aria-label="Filter by Shed 1">
+                  <span class="floor-label">Base</span>
+                  Shed 1: Aditya Logistics
+                </button>
+                <button class="building-floor-btn" data-floor="shed2" aria-label="Filter by Shed 2">
+                  <span class="floor-label">Base</span>
+                  Shed 2: Green Fields
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Directory Search and Listing Cards -->
+          <div class="directory-list-wrapper">
+            
+            <div class="directory-controls">
+              <div class="search-input-wrapper">
+                <!-- Search Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <input type="text" id="directorySearch" class="search-input" placeholder="Search by name, business, or category...">
+              </div>
+              
+              <select id="directoryFilter" class="filter-select" aria-label="Filter by business category">
+                <option value="all">All Categories</option>
+                <option value="healthcare">Healthcare & Dental</option>
+                <option value="office">IT & Professional Offices</option>
+                <option value="residential">Residential</option>
+                <option value="industrial">Logistics & Agriculture</option>
+              </select>
+            </div>
+
+            <!-- This container will be populated dynamically by app.js -->
+            <div id="directoryCardsContainer" class="directory-cards-list" style="display: flex; flex-direction: column; gap: 1.5rem;">
+              <!-- Cards dynamically inserted here -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding gallery-section">
+      <div class="container">
+        
+        <div class="section-header text-center">
+          <span class="section-tagline">Visual Tour</span>
+          <h2>Explore Vishala Vista</h2>
+          <p>Browse through high-quality photos highlighting the architecture, neat lobby workspaces, well-allocated parking zones, and commercial sheds.</p>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Item 1 -->
+          <div class="gallery-item" data-title="Exterior View" data-desc="The main front facade of Vishala Vista, showing the modern 3-story concrete and glass architecture." aria-label="View Exterior Photo">
+            <img src="images/exterior.png" alt="Exterior View of Vishala Vista">
+            <div class="gallery-overlay">
+              <h4>Exterior View</h4>
+              <p>Main Building Front Facade</p>
+            </div>
+          </div>
+          
+          <!-- Item 2 -->
+          <div class="gallery-item" data-title="Lobby Area" data-desc="Clean, spacious lobby entrance equipped with contemporary accents, ideal for welcoming commercial clients." aria-label="View Lobby Photo">
+            <img src="images/lobby.png" alt="Interior view of the building lobby">
+            <div class="gallery-overlay">
+              <h4>Lobby Area</h4>
+              <p>Common Entrance & Security Desk</p>
+            </div>
+          </div>
+          
+          <!-- Item 3 -->
+          <div class="gallery-item" data-title="Parking Space" data-desc="Spacious ground floor parking bays allocated for occupants and visitors, providing convenient accessibility." aria-label="View Parking Photo">
+            <img src="images/parking.png" alt="Dedicated parking spaces inside Vishala Vista">
+            <div class="gallery-overlay">
+              <h4>Parking Space</h4>
+              <p>Secure Ground Level Parking</p>
+            </div>
+          </div>
+          
+          <!-- Item 4 -->
+          <div class="gallery-item" data-title="Shed 1 Interior" data-desc="High-ceiling, naturally lit commercial warehouse shed interior, ideal for regional logistics and distribution." aria-label="View Shed Photo">
+            <img src="images/shed.png" alt="Interior view of Shed 1 warehouse space">
+            <div class="gallery-overlay">
+              <h4>Shed 1 Interior</h4>
+              <p>Commercial Logistics Space</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-padding about-section">
+      <div class="container about-grid">
+        
+        <div class="about-text">
+          <span class="section-tagline">About the Property</span>
+          <h3 id="aboutTitle">Modern Infrastructure in Tadithota</h3>
+          <p id="aboutDesc1">Vishala Vista is a premier 3-story multi-purpose building featuring advanced architectural planning, located strategically at Government Colony, Tadithota, Rajamahendravaram. With a design optimized for both commercial and residential tenants, the property incorporates robust power backup, modern elevator access, and structured fire-safety protocols.</p>
+          <p id="aboutDesc2">Adjacent to the main building are 2 high-capacity commercial sheds, providing prime logistics and agriculture storage space in the heart of the city.</p>
+          
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-icon-box">
+                <!-- Clock Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div class="feature-info">
+                <h4 id="accessTitle">Flexible Access</h4>
+                <p id="accessDetails">Operating hours from 8:00 AM to 8:00 PM, Monday to Saturday.</p>
+              </div>
+            </div>
+            
+            <div class="feature-item">
+              <div class="feature-icon-box">
+                <!-- Location Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div class="feature-info">
+                <h4 id="locationTitle">Prime Location</h4>
+                <p id="locationDetails">Located close to vital transport links and main commercial markets.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-info-cards">
+          <div class="info-card">
+            <h4 id="scheduleTitle">
+              <!-- Clock Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Operating Schedule
+            </h4>
+            <p id="scheduleWeekdays"><strong>Monday - Saturday:</strong> 8:00 AM - 8:00 PM</p>
+            <p id="scheduleSunday"><strong>Sunday:</strong> Closed (Closed for public, tenant access only)</p>
+          </div>
+          
+          <div class="info-card">
+            <h4 id="amenitiesTitle">
+              <!-- Sparkles Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+              Building Amenities
+            </h4>
+            <p id="amenity1">• High-speed passenger elevator & wide stairways</p>
+            <p id="amenity2">• Dedicated 24/7 security guard presence</p>
+            <p id="amenity3">• Uninterrupted power backup generator & water supply</p>
+            <p id="amenity4">• Designated visitors' parking lobby on ground floor</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox Modal View -->
+  <div id="galleryLightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer lightbox">
+    <button class="lightbox-close" aria-label="Close image viewer">
+      <!-- Close Cross Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image" style="display: none;">&lsaquo;</button>
+    <button class="lightbox-next" id="lightboxNext" aria-label="Next image" style="display: none;">&rsaquo;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img">
+      <div class="lightbox-caption">
+        <h4 class="lightbox-title">Image Title</h4>
+        <p class="lightbox-desc">Image Description text details.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Location & Contact Footer Section -->
+  <footer id="contact">
+    <div class="container footer-grid">
+      
+      <!-- Contact Info Section -->
+      <div class="footer-info">
+        <div class="footer-brand">
+          <h3>Vishala <span>Vista</span></h3>
+          <p>Quality structure and commercial spaces offering business growth and premium living accommodations in Rajamahendravaram.</p>
+        </div>
+        
+        <div class="contact-details-list">
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <!-- Location Marker Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Address Location</h4>
+              <p>XQVM+V75, Government Colony, Tadithota,<br>Rajamahendravaram, Andhra Pradesh 533101, India.</p>
+            </div>
+          </div>
+          
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <!-- Phone Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Building Management</h4>
+              <div id="contactPhonesContainer">
+                <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-detail-item">
+            <div class="contact-detail-icon">
+              <!-- Mail Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="contact-detail-text">
+              <h4>Email Address</h4>
+              <p><a href="mailto:info@vishalavista.com" id="contactEmail">info@vishalavista.com</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Embedded Google Map -->
+      <a href="https://maps.app.goo.gl/E3BY5Pt7dFMNQBaL6" target="_blank" class="footer-map-link" title="Click to open Google Maps">
+        <div class="footer-map-wrapper">
+          <div class="map-container">
+            <iframe 
+              src="https://maps.google.com/maps?q=Vishala%20Vista,%20Tadithota,%20Rajamahendravaram&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+              title="Google Map showing location of Vishala Vista" 
+              loading="lazy" 
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Copyright Footer Bottom -->
+    <div class="container footer-bottom">
+      <p>&copy; 2026 Vishala Vista. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#home">Back to Top</a>
+        <a href="#directory">Directory</a>
+        <a href="#contact">Contact</a>
+        <a href="/admin.html" style="font-weight: 600; color: var(--accent-light);">Admin Login</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Interactive Script -->
+  <script src="app.js"></script>
+</body>
+</html>
